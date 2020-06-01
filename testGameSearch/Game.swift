@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Game: Codable, Identifiable {
+struct Game: Decodable, Identifiable {
     let id: Int = 1
     let name: String = "Game Goals"
 }

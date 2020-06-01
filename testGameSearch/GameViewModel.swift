@@ -24,7 +24,7 @@ class GameViewModel: ObservableObject {
     
     func searchGames() {
         if let game = self.name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-            getGames(by: name)
+            getGames(by: game)
         }
     }
     

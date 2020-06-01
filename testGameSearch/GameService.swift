@@ -10,7 +10,7 @@ import Foundation
 
 class GameService {
     func getGames(name: String, completion: @escaping (Game?) -> ()) {
-        guard let url = URL(string: "https://api-v3.igdb.com/games/") else { return }
+        guard let url = URL(string: "https://api-v3.igdb.com/games") else { return }
 
         var request = URLRequest(url: url)
         request.setValue("c19caabe0607aee059f3cedb4bb8c6e1", forHTTPHeaderField: "user-key")
@@ -26,7 +26,7 @@ class GameService {
             }
             
             if let gameResponse = try? JSONDecoder().decode(Game.self, from: data) {
-                print("Yay")
+                completion(gameResponse)
             } else {print("Shit")}
             
         }.resume()

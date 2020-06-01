@@ -17,11 +17,14 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TextField("Enter Game Name", text: self.$gameVM.name) {
-            self.gameVM.searchGames()
+        HStack{
+            TextField("Enter Game Name", text: self.$gameVM.name) {
+                self.gameVM.searchGames()
+            }
+            
+            Text(self.gameVM.name)
         }
         
-        Text(self.gameVM.name)
     }
 }
 
