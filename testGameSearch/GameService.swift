@@ -9,6 +9,8 @@
 import Foundation
 
 class GameService {
+    
+    // I would like to be able to search for a game specifically by it's name. Does that mean I need it in my webservice when searching for games like below (getGames(name: String...)?
     func getGames(name: String, completion: @escaping (Game?) -> ()) {
         guard let url = URL(string: "https://api-v3.igdb.com/games") else { return }
 
@@ -25,9 +27,10 @@ class GameService {
                 return
             }
             
+            // This is where I know it's not working. I also think I need to be mapping the data so it can be presented in a list.
             if let gameResponse = try? JSONDecoder().decode(Game.self, from: data) {
                 completion(gameResponse)
-            } else {print("Shit")}
+            } else {print("Not Completing")}
             
         }.resume()
     }

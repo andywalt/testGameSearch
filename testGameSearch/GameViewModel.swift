@@ -13,6 +13,7 @@ class GameViewModel: ObservableObject {
     
     private var gameService: GameService
     
+    // I'm getting the Missing argument for paramter 'from' in call. I tried hitting fix multiple times but nothing showed up.
     @Published var game = Game()
     
     init() {

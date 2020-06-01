@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Game: Decodable, Identifiable {
+struct Game: Codable, Identifiable {
     let id: Int
     let name: String
 }
