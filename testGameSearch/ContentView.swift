@@ -18,9 +18,8 @@ struct ContentView: View {
             List(getGames.games) { game in
                 VStack (alignment: .leading) {
                     Text(game.name)
-                    Text(game.summary)
-                        .font(.system(size: 11))
-                        .foregroundColor(Color.gray)
+                    if game.summary != nil {
+                        Text(game.summary ?? "No Game Summary")}
                 }
             }
         }
