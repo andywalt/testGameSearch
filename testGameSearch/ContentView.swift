@@ -7,26 +7,23 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     
-    @ObservedObject var gameVM: GameViewModel
-    
-    init() {
-        self.gameVM = GameViewModel()
-    }
+    @ObservedObject var getGames = GameService()
     
     var body: some View {
-        List {
-             HStack{
-                 TextField("Enter Game Name", text: self.$gameVM.name) {
-                     self.gameVM.searchGames()
-                 }
-                 
-                 Text(self.gameVM.name)
+        VStack {
+            List(getGames.games) { game in
+                VStack (alignment: .leading) {
+                    Text(game.name)
+                    Text(game.summary)
+                        .font(.system(size: 11))
+                        .foregroundColor(Color.gray)
+                }
             }
         }
-        
     }
 }
 

@@ -11,4 +11,9 @@ import Foundation
 struct Game: Codable, Identifiable {
     let id: Int
     let name: String
+    let summary: String
+    
+    static var `default`: Game {
+        Game(id: 0, name: "Mario Kart", summary: "Slide Baby Slide")
+    }
 }
