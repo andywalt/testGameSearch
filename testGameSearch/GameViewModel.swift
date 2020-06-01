@@ -11,7 +11,7 @@ import Combine
 
 class GameViewModel: ObservableObject {
     
-    private var gameService: GameService!
+    private var gameService: GameService
     
     @Published var game = Game()
     
