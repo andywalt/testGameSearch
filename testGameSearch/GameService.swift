@@ -44,6 +44,5 @@ public class GameService: ObservableObject {
                 print("\(error)")
             }
         }.resume()
-        
     }
 }

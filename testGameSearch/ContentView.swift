@@ -11,16 +11,18 @@ import Combine
 
 struct ContentView: View {
     
-    @ObservedObject var getGames = GameService()
+    @ObservedObject var gamesList = GameService()
     
     var body: some View {
         VStack {
-            List(getGames.games) { game in
+            List(gamesList.games) { game in
                 VStack (alignment: .leading) {
                     Text(game.name)
                     if game.summary != nil {
                         Text(game.summary ?? "No Game Summary")}
-                    Text(game.platform?.name ?? "No Platform")
+                    ForEach(game.platforms) { platform in
+                        Text(platform.name)
+                    }
                 }
             }
         }

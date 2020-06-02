@@ -12,22 +12,11 @@ struct Game: Codable, Identifiable {
     let id: Int
     let name: String
     let summary: String?
-    let platform: Platform?
+    let platforms: [Platforms]
     
-    /*enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case summary = "summary"
-        case platform = ""
-    }*/
-}
-
-struct Platform: Codable, Identifiable {
-    let id: Int?
-    let name: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "platform.name"
+    struct Platforms: Codable, Identifiable {
+        let id: Int
+        let name: String
     }
+
 }
