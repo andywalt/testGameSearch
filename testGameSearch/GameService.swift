@@ -19,7 +19,7 @@ public class GameService: ObservableObject {
     
     func getGames() {
         
-        let parameters = "fields name, summary; limit 5;"
+        let parameters = "fields name, summary, platforms.name; where platforms = (48,6,49); limit 10;"
         let postData = parameters.data(using: .utf8)
         
         let url = URL(string: "https://api-v3.igdb.com/games/")!

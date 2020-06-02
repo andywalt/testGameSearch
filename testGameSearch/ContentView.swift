@@ -20,6 +20,7 @@ struct ContentView: View {
                     Text(game.name)
                     if game.summary != nil {
                         Text(game.summary ?? "No Game Summary")}
+                    Text(game.platform?.name ?? "No Platform")
                 }
             }
         }
