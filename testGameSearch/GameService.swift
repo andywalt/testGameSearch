@@ -9,20 +9,24 @@
 import Foundation
 import Combine
 
-public class GameService: ObservableObject {
+public class GameService {
     
+    /*
     @Published var games = [Game]()
     
     init(){
         getGames()
     }
+    */
     
-    func getGames() {
+    func getGames(game: String, completion: @escaping (Game?) -> ()) {
         
         let parameters = "fields name, summary, platforms.name; where platforms = (48,6,49); limit 10;"
         let postData = parameters.data(using: .utf8)
         
-        let url = URL(string: "https://api-v3.igdb.com/games/")!
+        let url = URL(string: "https://api-v3.igdb.com/games/\(game)")!
+        // Also not sure if it's a good idea to force unwrap the url
+        // Trying to be able to search the API by a specific game name.
         
         var request = URLRequest(url: url)
         request.addValue("c19caabe0607aee059f3cedb4bb8c6e1", forHTTPHeaderField: "user-key")
@@ -33,9 +37,10 @@ public class GameService: ObservableObject {
         URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 if let d = data {
-                    let decodedLists = try JSONDecoder().decode([Game].self, from: d)
-                    DispatchQueue.main.async {
-                        self.games = decodedLists
+                    let gameLists = try JSONDecoder().decode([Game].self, from: d)
+                      DispatchQueue.main.async {
+                        let game = gameLists
+                        //getting a yellow error here that says initialization of immutable value 'game' was never used.
                     }
                 } else {
                     print("No data in response: \(error?.localizedDescription ?? "Unknown Error").")

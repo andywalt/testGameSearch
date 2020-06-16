@@ -11,11 +11,24 @@ import Combine
 
 struct ContentView: View {
     
-    @ObservedObject var gamesList = GameService()
+    @ObservedObject var gameVM: GameViewModel
+    
+    init() {
+        self.gameVM = GameViewModel()
+    }
     
     var body: some View {
         VStack {
-            List(gamesList.games) { game in
+            TextField("Enter Game Name", text:
+            self.$gameVM.gameName) {
+                self.gameVM.searchGames()
+            }
+            
+            Text(self.gameVM.gameName)
+            
+            /* This is how I was displaying the results of the API before trying to implement the VM again and add a search feature.
+        
+            List(gameVM.games) { game in
                 VStack (alignment: .leading) {
                     Text(game.name)
                     if game.summary != nil {
@@ -24,7 +37,7 @@ struct ContentView: View {
                         Text(platform.name)
                     }
                 }
-            }
+            } */
         }
     }
 }
