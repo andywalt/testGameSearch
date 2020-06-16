@@ -19,14 +19,16 @@ public class GameService {
     }
     */
     
-    func getGames(game: String, completion: @escaping (Game?) -> ()) {
+    func getGames(gameName: String, completion: @escaping (Game?) -> ()) {
         
-        let parameters = "fields name, summary, platforms.name; where platforms = (48,6,49); limit 10;"
+        let parameters = "search \"\(gameName)\"; fields name, summary, platforms.name; where platforms = (48,6,49); limit 10;"
         let postData = parameters.data(using: .utf8)
         
-        let url = URL(string: "https://api-v3.igdb.com/games/\(game)")!
-        // Also not sure if it's a good idea to force unwrap the url
-        // Trying to be able to search the API by a specific game name.
+        guard let url = URL(string: "https://api-v3.igdb.com/games/") else {
+            // Force unwrap would be fine if it's just a static string, but guard let is a better habit to get into.
+            print("Invalid URL source https://api-v3.igdb.com/games/")
+            return
+        }
         
         var request = URLRequest(url: url)
         request.addValue("c19caabe0607aee059f3cedb4bb8c6e1", forHTTPHeaderField: "user-key")
@@ -39,8 +41,10 @@ public class GameService {
                 if let d = data {
                     let gameLists = try JSONDecoder().decode([Game].self, from: d)
                       DispatchQueue.main.async {
-                        let game = gameLists
-                        //getting a yellow error here that says initialization of immutable value 'game' was never used.
+                        let game = gameLists.first
+                        
+                        completion(game)
+
                     }
                 } else {
                     print("No data in response: \(error?.localizedDescription ?? "Unknown Error").")

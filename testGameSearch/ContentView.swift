@@ -23,9 +23,10 @@ struct ContentView: View {
             self.$gameVM.gameName) {
                 self.gameVM.searchGames()
             }
-            
-            Text(self.gameVM.gameName)
-            
+            if self.gameVM.game != nil {
+                Text(self.gameVM.game!.name)
+                Text(self.gameVM.game!.summary ?? "")
+            }
             /* This is how I was displaying the results of the API before trying to implement the VM again and add a search feature.
         
             List(gameVM.games) { game in
