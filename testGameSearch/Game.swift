@@ -8,13 +8,14 @@
 
 import Foundation
 
-struct Game: Codable, Identifiable {
+struct Game: Codable, Identifiable, Hashable {
+    
     let id: Int
     let name: String
     let summary: String?
     let platforms: [Platforms]
     
-    struct Platforms: Codable, Identifiable {
+    struct Platforms: Codable, Identifiable, Hashable {
         let id: Int
         let name: String
     }

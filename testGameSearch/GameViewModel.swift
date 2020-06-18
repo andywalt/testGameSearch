@@ -12,7 +12,7 @@ import Combine
 class GameViewModel: ObservableObject {
     
     private var gameService: GameService
-    @Published var game: Game?
+    @Published var games: [Game] = .init()
     
     init() {
         self.gameService = GameService()
@@ -26,12 +26,10 @@ class GameViewModel: ObservableObject {
     }
     
     private func getGames(by gameName: String) {
-        self.gameService.getGames(gameName: gameName) { game in
-            if let game = game {
+        self.gameService.getGames(gameName: gameName) { games in
                 DispatchQueue.main.async {
-                    self.game = game
+                    self.games = games
                 }
-            }
         }
     }
 }
