@@ -12,27 +12,21 @@ import Combine
 class GameViewModel: ObservableObject {
     
     private var gameService: GameService
-    
-    @Published var game = Game()
-    
-    //getting a Missing argument for paramter 'from' in call error here
-    
+    @Published var game: Game?
     
     init() {
         self.gameService = GameService()
         
     }
     
-    var gameName: String = ""
+    @Published var gameName: String = ""
     
     func searchGames() {
-        if let game = self.game.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-            getGames(by: game)
-        }
+            getGames(by: gameName)
     }
     
-    private func getGames(by game: String) {
-        self.gameService.getGames(game: game) { game in
+    private func getGames(by gameName: String) {
+        self.gameService.getGames(gameName: gameName) { game in
             if let game = game {
                 DispatchQueue.main.async {
                     self.game = game
