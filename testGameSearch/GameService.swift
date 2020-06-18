@@ -19,7 +19,7 @@ public class GameService {
     }
     */
     
-    func getGames(gameName: String, completion: @escaping (Game?) -> ()) {
+    func getGames(gameName: String, completion: @escaping ([Game]) -> ()) {
         
         let parameters = "search \"\(gameName)\"; fields name, summary, platforms.name; where platforms = (48,6,49); limit 10;"
         let postData = parameters.data(using: .utf8)
@@ -40,12 +40,12 @@ public class GameService {
             do {
                 if let d = data {
                     let gameLists = try JSONDecoder().decode([Game].self, from: d)
+                    
+                    
                       DispatchQueue.main.async {
-                        let game = gameLists.first
-                        
-                        completion(game)
-
+                        completion(gameLists)
                     }
+                    
                 } else {
                     print("No data in response: \(error?.localizedDescription ?? "Unknown Error").")
                 }

@@ -18,27 +18,21 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
+            
             TextField("Enter Game Name", text:
             self.$gameVM.gameName) {
                 self.gameVM.searchGames()
             }
-            if self.gameVM.game != nil {
-                Text(self.gameVM.game!.name)
-                Text(self.gameVM.game!.summary ?? "")
-            }
-            /* This is how I was displaying the results of the API before trying to implement the VM again and add a search feature.
-        
-            List(gameVM.games) { game in
-                VStack (alignment: .leading) {
+            
+            ForEach(self.gameVM.games, id: \.self) { game in
+                VStack(alignment: .leading) {
                     Text(game.name)
-                    if game.summary != nil {
-                        Text(game.summary ?? "No Game Summary")}
-                    ForEach(game.platforms) { platform in
-                        Text(platform.name)
-                    }
+                        .bold()
+                    Text(game.summary ?? "")
                 }
-            } */
+            }
+            
         }
     }
 }
